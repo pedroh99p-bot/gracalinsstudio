@@ -375,7 +375,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     .section {
+      position: relative;
       padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .section-transition {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      height: 54px;
+      margin-top: -1px;
+      margin-bottom: -1px;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--off-white), var(--champagne) 48%, var(--off-white));
+    }
+    .section-transition::before,
+    .section-transition::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: min(30vw, 260px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(198, 163, 106, .62));
+    }
+    .section-transition::before { right: calc(50% + 2rem); }
+    .section-transition::after { left: calc(50% + 2rem); transform: scaleX(-1); }
+    .section-transition img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      opacity: .4;
+      filter: sepia(.18);
     }
     .section-dark {
       color: var(--off-white);
@@ -1186,10 +1216,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       object-fit: contain;
     }
     .google-rating-badge__icon.google-lettermark {
-      color: #4285F4;
-      font-family: Arial, sans-serif;
-      font-size: 1.35rem;
-      font-weight: 800;
+      overflow: hidden;
+    }
+    .google-rating-badge__icon.google-lettermark img {
+      width: 23px;
+      height: 23px;
+      object-fit: contain;
     }
     .google-rating-badge__content {
       display: flex;
@@ -1227,6 +1259,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-weight: 700;
       line-height: 1;
       white-space: nowrap;
+    }
+    .google-rating-badge__score-value {
+      color: var(--espresso);
+      font-size: .95rem;
+      font-weight: 800;
+      line-height: 1;
     }
     .google-rating-badge--hero {
       margin-top: 1.15rem;
@@ -1300,6 +1338,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .review-card p {
       margin-bottom: 1.35rem;
       color: var(--ink-muted);
+    }
+    .review-card header {
+      justify-content: flex-start;
+    }
+    .review-avatar {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      border: 2px solid rgba(198, 163, 106, .62);
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .review-card .review-stars {
+      display: block;
+      margin-top: .25rem;
+      color: #F6B400;
+      font-size: .8rem;
+      letter-spacing: .08em;
     }
     .review-author {
       color: var(--espresso);
@@ -1864,10 +1920,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       opacity: .065;
     }
     .hero-scroll-indicator {
-      position: absolute;
-      left: 50%;
-      bottom: 1.35rem;
-      z-index: 3;
+      position: relative;
+      z-index: 4;
       display: inline-flex;
       align-items: center;
       gap: .55rem;
@@ -1876,7 +1930,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-weight: 700;
       letter-spacing: .16em;
       text-transform: uppercase;
-      transform: translateX(-50%);
+      width: fit-content;
+      margin: -1.65rem auto 1.1rem;
+      padding: .55rem .9rem;
+      border: 1px solid rgba(198, 163, 106, .28);
+      border-radius: 999px;
+      background: rgba(245, 241, 234, .94);
+      box-shadow: 0 10px 25px rgba(33, 28, 24, .08);
     }
     .hero-scroll-indicator .ui-icon {
       width: 18px;
@@ -2383,9 +2443,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         width: 15rem;
       }
       .hero-scroll-indicator {
-        bottom: .85rem;
         width: max-content;
         max-width: calc(100% - 2rem);
+        margin-top: -1.35rem;
         font-size: .54rem;
       }
       .hero-inner::before {
@@ -3326,10 +3386,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .hero-portrait {
         position: absolute;
         top: 4rem;
-        right: -42%;
+        right: -24%;
         bottom: 0;
         z-index: 0;
-        width: 118%;
+        width: 110%;
         height: auto;
         min-height: 0;
         justify-content: flex-end;
@@ -3472,11 +3532,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         box-shadow: 0 18px 46px rgba(122, 90, 68, .13);
       }
       .specialist-mobile-portrait::before {
-        display: none;
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: block;
+        pointer-events: none;
+        background: linear-gradient(180deg, transparent 56%, rgba(245, 241, 234, .2) 78%, rgba(245, 241, 234, .72));
+      }
       }
       .specialist-mobile-portrait img {
         position: absolute;
-        right: -22%;
+        right: -8%;
         bottom: 0;
         z-index: 1;
         width: auto;
@@ -3753,8 +3820,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <a class="btn btn-outline" href="#portfolio" data-track-event="view_transformation" data-cta-location="hero"><svg class="ui-icon" aria-hidden="true"><use href="#icon-sparkles"></use></svg>Ver transformações</a>
           </div>
           <div class="google-rating-badge google-rating-badge--hero" aria-label="Graça Lins no Google, cinco estrelas">
-            <span class="google-rating-badge__icon google-lettermark" aria-hidden="true">G</span>
-            <span class="google-rating-badge__content"><strong class="google-rating-badge__label">Google</strong><span class="stars" aria-label="5 estrelas">★★★★★</span></span>
+            <span class="google-rating-badge__icon google-lettermark" aria-hidden="true"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"></span>
+            <span class="google-rating-badge__content"><strong class="google-rating-badge__label">Google</strong><span class="google-rating-badge__score-value">5.0</span><span class="stars" aria-label="5 estrelas">★★★★★</span></span>
           </div>
           <ul class="hero-proof" aria-label="Especialidades Graça Lins">
             <li><svg class="ui-icon" aria-hidden="true"><use href="#icon-ruler"></use></svg>Mega hair</li>
@@ -3767,8 +3834,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <img src="https://res.cloudinary.com/dhbrxzt5a/image/upload/v1790009852/889624db-9050-443a-b9e7-cfb4e77edcdb_zmlray.webp" alt="Graça Lins, especialista em Mega Hair e Mechas" fetchpriority="high" decoding="async">
         </figure>
       </div>
-      <a class="hero-scroll-indicator" href="#agendamento" aria-label="Escolha seu agendamento"><span>Escolha seu agendamento</span><svg class="ui-icon" aria-hidden="true"><use href="#icon-arrow-down"></use></svg></a>
     </section>
+    <a class="hero-scroll-indicator" href="#agendamento" aria-label="Escolha seu agendamento"><span>Escolha seu agendamento</span><svg class="ui-icon" aria-hidden="true"><use href="#icon-arrow-down"></use></svg></a>
+    <div class="section-transition" aria-hidden="true"><img src="https://res.cloudinary.com/dhbrxzt5a/image/upload/v1790009977/df171e13-4e3d-4fa9-8a99-440a73f31c35_sjixmn.webp" alt=""></div>
 
     <section class="section booking-section surface-gold reveal" id="agendamento">
       <div class="container booking-app" data-booking-app>
@@ -3864,8 +3932,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span class="specialist-rule" aria-hidden="true"></span>
           <p>Especialista em mega hair personalizado e colorimetria, com olhar técnico para integrar cor, textura e estilo de forma natural.</p>
           <div class="google-rating-badge google-rating-badge--specialist" aria-label="Graça Lins no Google, cinco estrelas">
-            <span class="google-rating-badge__icon google-lettermark" aria-hidden="true">G</span>
-            <span class="google-rating-badge__content"><strong class="google-rating-badge__label">Google</strong><span class="stars" aria-label="5 estrelas">★★★★★</span></span>
+            <span class="google-rating-badge__icon google-lettermark" aria-hidden="true"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"></span>
+            <span class="google-rating-badge__content"><strong class="google-rating-badge__label">Google</strong><span class="google-rating-badge__score-value">5.0</span><span class="stars" aria-label="5 estrelas">★★★★★</span></span>
           </div>
           <ul class="specialist-signatures" aria-label="Diferenciais da Graça Lins">
             <li>
@@ -3897,8 +3965,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <p>Cada transformação é pensada em cada detalhe: <strong>cor, textura, movimento</strong> e o resultado que você deseja.</p>
             <b>Beleza que realça quem você é.</b>
             <div class="google-rating-badge google-rating-badge--mobile" aria-label="Graça Lins no Google, cinco estrelas">
-              <span class="google-rating-badge__icon google-lettermark" aria-hidden="true">G</span>
-              <span class="google-rating-badge__content"><strong class="google-rating-badge__label">Google</strong><span class="stars" aria-label="5 estrelas">★★★★★</span></span>
+              <span class="google-rating-badge__icon google-lettermark" aria-hidden="true"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"></span>
+              <span class="google-rating-badge__content"><strong class="google-rating-badge__label">Google</strong><span class="google-rating-badge__score-value">5.0</span><span class="stars" aria-label="5 estrelas">★★★★★</span></span>
             </div>
           </div>
           <figure class="specialist-mobile-portrait">
@@ -4157,28 +4225,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </section>
 
+    <div class="section-transition" aria-hidden="true"><img src="https://res.cloudinary.com/dhbrxzt5a/image/upload/v1790009977/df171e13-4e3d-4fa9-8a99-440a73f31c35_sjixmn.webp" alt=""></div>
     <section class="section reviews reveal" id="avaliacoes">
       <div class="container reviews-grid">
         <div class="reviews-summary">
           <div>
-            <p class="eyebrow">Conheça o trabalho</p>
+            <p class="eyebrow">Prévia de depoimentos</p>
             <h2>Beleza pensada para você.</h2>
-            <p class="muted">Acompanhe os resultados, técnicas e novidades da Graça Lins no Instagram.</p>
+            <p class="muted">Uma prévia de como os depoimentos podem aparecer no site, com autoridade visual do Google.</p>
           </div>
-          <div class="rating-line">
-            <span>Graça Lins · Mega Hair &amp; Mechas</span>
+          <div class="google-rating-badge" aria-label="Graça Lins no Google, nota 5.0 e cinco estrelas">
+            <span class="google-rating-badge__icon google-lettermark" aria-hidden="true"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"></span>
+            <span class="google-rating-badge__content"><strong class="google-rating-badge__label">Google</strong><span class="google-rating-badge__score-value">5.0</span><span class="stars" aria-label="5 estrelas">★★★★★</span></span>
           </div>
         </div>
         <div class="reviews-marquee" aria-label="Destaques do trabalho da Graça Lins">
           <div class="reviews-track">
-            <article class="review-card"><p>Atendimento personalizado, técnica e cuidado em cada detalhe.</p><span class="review-author">Mega Hair</span></article>
-            <article class="review-card"><p>Mechas desenhadas para valorizar a sua beleza e a sua rotina.</p><span class="review-author">Mechas</span></article>
-            <article class="review-card"><p>Agende sua avaliação e encontre o melhor caminho para o seu cabelo.</p><span class="review-author">Atendimento</span></article>
+            <article class="review-card">
+              <header><img class="review-avatar" src="assets/portfolio/mega-hair-01.webp" alt="Foto de Marina"><div><strong class="review-author">Marina S.</strong><span class="review-stars" aria-label="5 estrelas">★★★★★</span></div></header>
+              <p>“Amei o resultado, ficou leve e super natural. Me senti ainda mais bonita.”</p>
+              <span class="review-author">Mega Hair</span>
+            </article>
+            <article class="review-card">
+              <header><img class="review-avatar" src="assets/portfolio/loiros-02.webp" alt="Foto de Juliana"><div><strong class="review-author">Juliana R.</strong><span class="review-stars" aria-label="5 estrelas">★★★★★</span></div></header>
+              <p>“As mechas ficaram exatamente no tom que eu imaginava. Atendimento impecável.”</p>
+              <span class="review-author">Mechas</span>
+            </article>
+            <article class="review-card">
+              <header><img class="review-avatar" src="assets/portfolio/cacheados-03.webp" alt="Foto de Camila"><div><strong class="review-author">Camila A.</strong><span class="review-stars" aria-label="5 estrelas">★★★★★</span></div></header>
+              <p>“Cuidado em cada detalhe e uma transformação que combina comigo.”</p>
+              <span class="review-author">Colorimetria</span>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
+    <div class="section-transition" aria-hidden="true"><img src="https://res.cloudinary.com/dhbrxzt5a/image/upload/v1790009977/df171e13-4e3d-4fa9-8a99-440a73f31c35_sjixmn.webp" alt=""></div>
     <section class="section section-dark location reveal surface-gold" id="localizacao">
       <div class="container location-grid">
         <div class="location-copy">
